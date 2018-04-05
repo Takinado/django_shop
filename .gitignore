@@ -117,3 +117,6 @@ venv.bak/
 *.iml
 out
 gen
+
+media/
+static/
