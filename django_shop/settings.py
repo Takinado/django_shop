@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'bootstrap3',
 
     'shop',
+    'cart',
 
     "debug_toolbar",
     "django_extensions",
@@ -122,6 +123,8 @@ MEDIA_URL = '/media/'  # URL для медии в шаблонах
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+CART_SESSION_ID = 'cart'
 
 try:
     from .local_settings import *
