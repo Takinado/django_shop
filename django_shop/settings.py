@@ -132,3 +132,7 @@ try:
     from .local_settings import *
 except ImportError:
     print('WARNING: local_settings.py not found!')
+
+if DEBUG:
+    # Email
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
