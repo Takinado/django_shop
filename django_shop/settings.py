@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bootstrap3',
+    'paypal.standard.ipn',
 
     'shop',
     'cart',
     'orders',
+    'payment',
 
     "debug_toolbar",
     "django_extensions",
@@ -127,6 +129,10 @@ STATICFILES_DIRS = (
 )
 
 CART_SESSION_ID = 'cart'
+
+# https://django-paypal.readthedocs.io/en/stable/standard/ipn.html
+PAYPAL_RECEIVER_EMAIL = 'JohxaTakinado-facilitator@gmail.com'
+PAYPAL_TEST = True
 
 try:
     from .local_settings import *

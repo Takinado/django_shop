@@ -14,6 +14,7 @@ pillow = "*"
 "django-bootstrap3" = "*"
 celery = "*"
 flower = "*"
+django-paypal = "*"
 
 
 [dev-packages]
