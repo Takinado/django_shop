@@ -8,9 +8,9 @@
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="{% url 'admin:index' %}">Главная</a>
-        <a href="{% url 'admin:orders_order_changelist' %}">Заказы</a>
-        <a href="{% url 'admin:orders_order_change' order.id %}">Заказ {{ order.id }}</a>
+        <a href="{% url 'admin:index' %}">Начало</a> &rsaquo;
+        <a href="{% url 'admin:orders_order_changelist' %}">Заказы</a> &rsaquo;
+        <a href="{% url 'admin:orders_order_change' order.id %}">Заказ {{ order.id }}</a> &rsaquo;
         Детали
     </div>
 {% endblock %}
@@ -51,8 +51,8 @@
 
     <div class="module">
         <div class="tabular inline-related list-related">
+            <h2>Заказанные товары</h2>
             <table>
-                <h2>Заказанные товары</h2>
                 <thead>
                 <tr>
                     <th>Товар</th>

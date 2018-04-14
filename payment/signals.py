@@ -1,5 +1,11 @@
+import os
+from io import BytesIO
+
+import weasyprint
 from django.conf import settings
+from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from paypal.standard.ipn.signals import valid_ipn_received
 from paypal.standard.models import ST_PP_COMPLETED
 
@@ -31,6 +37,21 @@ def payment_notification(sender, **kwargs):
         order = get_object_or_404(Order, id=ipn_obj.invoice)
         order.paid = True
         order.save()
+
+        # PDF Generation
+        html = render_to_string('orders/order_pdf.html', {'order': order})
+        out = BytesIO()
+        weasyprint.HTML(string=html).write_pdf(
+            out,
+            stylesheets=[weasyprint.CSS(os.path.join(settings.STATIC_ROOT, 'css/bootstrap.css'))],
+        )
+
+        # Sending email
+        subject = 'Онлайн магазин - заказ: {}'.format(order.id)
+        message = 'К email сообщению приклеплён PDF-файл с информацией о заказе.'
+        email = EmailMessage(subject, message, 'takinado@mail.ru', [order.email])
+        email.attach('order_{}.pdf'.format(order.id), out.getvalue(), 'application/pdf')
+        email.send()
 
 
 valid_ipn_received.connect(payment_notification)
