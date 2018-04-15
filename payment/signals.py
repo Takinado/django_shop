@@ -41,10 +41,8 @@ def payment_notification(sender, **kwargs):
         # PDF Generation
         html = render_to_string('orders/order_pdf.html', {'order': order})
         out = BytesIO()
-        weasyprint.HTML(string=html).write_pdf(
-            out,
-            stylesheets=[weasyprint.CSS(os.path.join(settings.STATIC_ROOT, 'css/bootstrap.css'))],
-        )
+        stylesheets = [weasyprint.CSS(os.path.join(settings.STATIC_ROOT, 'css/bootstrap.css'))]
+        weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
 
         # Sending email
         subject = 'Онлайн магазин - заказ: {}'.format(order.id)

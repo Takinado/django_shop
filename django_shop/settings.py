@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'payment',
+    'cupons',
 
     "debug_toolbar",
     "django_extensions",

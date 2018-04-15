@@ -1,4 +1,4 @@
-{% extends "shop/base.html" %}
+{% extends 'shop/base.html' %}
 {% block title %}
     Ваша корзина товаров
 {% endblock %}
@@ -42,13 +42,30 @@
                 </tr>
             {% endwith %}
         {% endfor %}
+        {% if cart.cupon %}
+            <tr class="subtotal">
+                <td>Сумма без скидки</td>
+                <td colspan="4"></td>
+                <td>{{ cart.get_total_price }}</td>
+            </tr>
+            <tr>
+                <td>"{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)</td>
+                <td colspan="4"></td>
+                <td class="num discount">- {{ cart.get_discount|floatformat:'0' }} руб.</td>
+            </tr>
+        {% endif %}
         <tr class="total">
-            <td>Total</td>
+            <td>Всего</td>
             <td colspan="4"></td>
-            <td class="num">{{ cart.get_total_price }} руб.</td>
+            <td class="num">{{ cart.get_total_price_after_discount|floatformat:'0' }} руб.</td>
         </tr>
         </tbody>
     </table>
+    <p>Применить купон</p>
+    <form action="{% url 'cupon:aplly' %}" method="post" class="add"></form>
+    {% csrf_token %}
+    {{ cupon_aplly_form }}
+    <button type="submit">Обновить</button>
     <p class="text-right">
         <a href="{% url "shop:product_list" %}" class="btn">Продолжить Шопинг</a>
         <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
