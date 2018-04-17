@@ -23,6 +23,7 @@
                         <a href="{{ product.get_absolute_url }}">
                             <img src="
 
+
                                     {% if product.image %}{{ product.image.url }}{% else %} http://dummyimage.com/300 {% endif %}"
                                  class="img-responsive">
                         </a>
@@ -61,11 +62,12 @@
         </tr>
         </tbody>
     </table>
-    <p>Применить купон</p>
-    <form action="{% url 'cupon:aplly' %}" method="post" class="add"></form>
-    {% csrf_token %}
-    {{ cupon_aplly_form }}
-    <button type="submit">Обновить</button>
+    <p>Купон</p>
+    <form action="{% url 'cupon:aplly' %}" method="post" class="add">
+        {% csrf_token %}
+        {{ cupon_aplly_form }}
+        <button type="submit">Применить</button>
+    </form>
     <p class="text-right">
         <a href="{% url "shop:product_list" %}" class="btn">Продолжить Шопинг</a>
         <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
